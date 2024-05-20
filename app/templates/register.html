@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registro.css' %}">
+</head>
+<body>
+    <h2>Registro</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+        
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+            
+        <ul>
+            <li>Deve ter, no mínimo, 12 caracteres</li>
+            <li>Deve incluir letras maiúsculas e minúsculas (a-z e A-Z)</li>
+            <li>Deve incluir um número (0-9)</li>
+            <li>Deve incluir um caractere especial (!, @, #, %, etc.)</li>
+            <li>Não deve incluir a palavra "Zendesk"</li>
+            <li>Não deve se parecer com um endereço de e-mail</li>
+            <li>Deve passar por uma lista de verificação de senhas comprometidas</li>
+        </ul>
+        
+        
+        
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>

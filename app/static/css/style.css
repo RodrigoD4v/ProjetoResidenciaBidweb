@@ -1,0 +1,49 @@
+body {
+  height: 100vh;
+  background-color: blue;
+  background-image: url('../img/pequena.svg');
+  background-position: center 
+  center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;          
+  padding: 0;
+  color: white;
+}
+
+#scan-form {
+  text-align: left;
+}
+
+nav.hot-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+}
+
+nav.hot-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav.hot-bar ul li {
+  margin-right: 20px;
+}
+
+nav.hot-bar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+nav.hot-bar ul li a:hover {
+  text-decoration: underline;
+}
+
+nav.hot-bar ul li:last-child {
+  margin-left: auto;
+}
+
+

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TPW</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="hot-bar">
+        <ul>
+            <li>Usuário logado: {{ user.username }}</li>
+            <li><a href="#">Últimos testes</a></li>
+            <li><a href="#">Sair</a></li>
+        </ul>
+    </nav>
+
+    <h1>Teste de Penetração Web</h1>
+    
+    <form id="scan-form">
+        {% csrf_token %}
+        URL alvo: <input type="text" name="url" id="url-input">
+        <button type="button" onclick="runScan()">Executar Varredura</button>
+    </form>
+    
+    <script src="{% static 'js/scan.js' %}"></script>
+</body>
+</html>
