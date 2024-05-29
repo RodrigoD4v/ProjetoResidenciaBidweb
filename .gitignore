@@ -1,0 +1,39 @@
+
+# Distribuição / pacotes instalados
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Instalações do Installer
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg-info/
+.installed.cfg
+lib/
+lib64/
+__pypackages__/
+
+# Logs e relatórios
+*.log
+*.pot
+*.log.*
+
+# Caches
+.cache/
+coverage/
+
+# Variáveis de ambiente
+.env
+.env.*

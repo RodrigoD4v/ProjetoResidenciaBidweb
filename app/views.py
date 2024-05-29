@@ -17,7 +17,8 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.auth import logout  # Importe a função logout
+from io import BytesIO
 
 def login_view(request):
     if request.method == 'POST':
@@ -28,7 +29,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')  # Redirecione para sua página principal
+                return redirect('index')  
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -42,7 +43,7 @@ def is_valid_password(password):
     return True, None
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)  # Adicione o campo de e-mail
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
@@ -181,25 +182,26 @@ def run_scan(request):
             )
             vulnerabilities.append(vulnerability)
 
-        #
-        pdf_path = generate_pdf(vulnerabilities)
+        pdf_bytes = generate_pdf(vulnerabilities)
         
         # 
         test_result.status = 'Concluído'
         test_result.save()
         
         # 
-        with open(pdf_path, 'rb') as pdf_file:
-            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename=report.pdf'
-            return response
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=report.pdf'
+        return response
 
     except Exception as e:
         return HttpResponse(f"Error: {str(e)}", status=400)
 
 
-def generate_pdf(vulnerabilities, file_path="report.pdf"):
-    pdf = SimpleDocTemplate(file_path, pagesize=letter)
+
+
+def generate_pdf(vulnerabilities):
+    buffer = BytesIO()  # Cria um buffer de memória para o PDF
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
     elements = []
     
     data = [["Tipo", "Descrição", "Impacto"]]
@@ -208,7 +210,7 @@ def generate_pdf(vulnerabilities, file_path="report.pdf"):
         'Tipo': 15,
         'Descrição': 50,
         'Impacto': 15
-    }  # 
+    }
     
     for vulnerability in vulnerabilities:
         tipo_lines = textwrap.wrap(vulnerability.tipo, max_length['Tipo'])
@@ -221,12 +223,12 @@ def generate_pdf(vulnerabilities, file_path="report.pdf"):
         
         data.append([tipo_text, descricao_text, impacto_text])
     
-    table = Table(data, colWidths=[100, 300, 100])  # 
+    table = Table(data, colWidths=[100, 300, 100])
     table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),  # 
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
         ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
@@ -236,4 +238,8 @@ def generate_pdf(vulnerabilities, file_path="report.pdf"):
     elements.append(table)
     pdf.build(elements)
     
-    return file_path
+    buffer.seek(0)
+    return buffer.getvalue()
+
+
+

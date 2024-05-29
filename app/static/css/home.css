@@ -2,24 +2,26 @@ body {
   height: 100vh;
   background-color: blue;
   background-image: url('../img/pequena.svg');
-  background-position: center 
-  center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Arial, sans-serif;
-  margin: 0;          
+  margin: 0;
   padding: 0;
   color: white;
 }
 
 #scan-form {
-  text-align: left;
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 }
 
 nav.hot-bar {
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
-  padding: 20px;
+  padding: 1.2rem;
 }
 
 nav.hot-bar ul {
@@ -30,7 +32,7 @@ nav.hot-bar ul {
 }
 
 nav.hot-bar ul li {
-  margin-right: 20px;
+  margin-right: 2rem;
 }
 
 nav.hot-bar ul li a {
@@ -46,4 +48,28 @@ nav.hot-bar ul li:last-child {
   margin-left: auto;
 }
 
+#scan-form input[type="text"] {
+  width: 45rem;
+  padding: 1rem;
+  margin: 2rem 0rem 1.5rem 20rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 1rem;
+}
 
+#scan-form button {
+  padding: 1rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 1rem;
+  background-color: #FFA500;
+  color: white;
+  margin-right: 17.5rem; 
+}
+
+#scan-form button:hover {
+  background-color: #FF8C00;
+}
+
+h1 {
+  margin-top: 3rem;
+  text-align: center;
+}

@@ -6,12 +6,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    <p>Não tem uma conta? <a href="{% url 'register' %}">Registrar-se</a></p>
+
+    <nav class = "hot-bar"></nav>
+
+    <h1>Bem Vindo ao TWP (Test Web Penetration)</h1>
+
+    <div class="login-container">
+    
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Nome de Usuário">
+            <input type="password" name="password" placeholder="Senha">
+            <button type="submit">Login</button>
+        </form>
+        <p class="registro-link">Não tem uma conta? <a href="{% url 'register' %}">Registrar-se</a></p>
+    </div>
+
+
 </body>
 </html>

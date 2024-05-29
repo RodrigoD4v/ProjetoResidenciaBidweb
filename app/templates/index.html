@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>TPW</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
 <body>
     <nav class="hot-bar">
@@ -18,7 +18,7 @@
     
     <form id="scan-form">
         {% csrf_token %}
-        URL alvo: <input type="text" name="url" id="url-input">
+        <input type="text" name="url" id="url-input" placeholder=" URL"> 
         <button type="button" onclick="runScan()">Executar Varredura</button>
     </form>
     
