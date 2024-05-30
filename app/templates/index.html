@@ -10,7 +10,7 @@
         <ul>
             <li>Usuário logado: {{ user.username }}</li>
             <li><a href="#">Últimos testes</a></li>
-            <li><a href="#">Sair</a></li>
+            <li><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
     </nav>
 
