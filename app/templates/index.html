@@ -8,7 +8,7 @@
 <body>
     <nav class="hot-bar">
         <ul>
-            <li>Usuário logado: {{ user.username }}</li>
+            <li id="user-info">Usuário: <span class="username">{{ user.username }}</span></li>
             <li><a href="#">Últimos testes</a></li>
             <li><a href="{% url 'logout' %}">Sair</a></li>
         </ul>

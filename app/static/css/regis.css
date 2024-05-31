@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 body {
   height: 100vh;
   background-color: blue;
@@ -5,7 +7,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   color: white;
@@ -74,17 +76,18 @@ form li {
   width: 25rem;
   padding: 0.8rem;
   margin-bottom: 0.8rem;
-  border: 0.1rem solid #ccc;
+  border: none;
   border-radius: 10px;
 }
 
 .input-group button[type="submit"] {
   width: 150px;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #FFA500;
-  color: white;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: bold;
   margin-right: 17.5rem;
 }
 
@@ -104,3 +107,29 @@ form p a:hover {
 form {
   margin-left: 20rem;
 }
+
+@media screen and (max-width: 1070px) {
+  form {
+    margin-top: 5rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  form ul {
+    text-align: center;
+  }
+
+  .input-group input[type="text"],
+  .input-group input[type="email"],
+  .input-group input[type="password"]{
+    width: 80%;
+    margin-right: 0;
+  }
+
+  .input-group button[type="submit"] {
+    margin-right: 0;
+    width: 15em;
+  }
+}
+

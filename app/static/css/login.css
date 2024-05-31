@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 body {
   height: 100vh;
   background-color: blue;
@@ -5,7 +7,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   color: white;
@@ -18,7 +20,6 @@ body {
 nav.hot-bar {
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
-  padding: 20px;
 }
 
 nav.hot-bar ul {
@@ -74,10 +75,12 @@ h1 {
   width: 150px;
   padding: 10px;
   margin-top: 10px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 10px;
   background-color: #FFA500;
-  color: white;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 
 .login-container button[type="submit"]:hover {
@@ -96,4 +99,26 @@ h1 {
 
 .login-container p a:hover {
   color: #FF8C00;
+}
+
+@media screen and (max-width: 1070px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login-container {
+    max-width: 300px;
+    margin: 0 auto;
+    margin-bottom: 10rem
+  }
+
+  .login-container input[type="text"],
+  .login-container input[type="password"] {
+    max-width: 20rem;
+  }
+
 }
