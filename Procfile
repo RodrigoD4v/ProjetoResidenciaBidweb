@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn TestWebPenetration.wsgi
+web: gunicorn ProjetoResidenciaBidweb.wsgi
