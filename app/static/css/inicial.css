@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 body {
   height: 100vh;
-  background-color: blue;
   background-image: url('../img/pequena.svg');
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  color: white;
+  color: #140641;
+  font-size: 1.2rem;
 }
 
 #scan-form {
@@ -19,10 +21,10 @@ body {
 }
 
 nav.hot-bar {
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  padding: 1.2rem;
+  padding: 1rem;
+  background-color: #348197;
 }
+
 
 nav.hot-bar ul {
   list-style-type: none;
@@ -33,15 +35,21 @@ nav.hot-bar ul {
 
 nav.hot-bar ul li {
   margin-right: 2rem;
+  font-weight: bold;
+}
+
+nav.hot-bar ul li#user-info span.username {
+  color: #fff;
 }
 
 nav.hot-bar ul li a {
-  color: white;
+  font-weight: bold;
+  color: #140641;
   text-decoration: none;
 }
 
 nav.hot-bar ul li a:hover {
-  text-decoration: underline;
+  color: #FF8C00;
 }
 
 nav.hot-bar ul li:last-child {
@@ -58,18 +66,33 @@ nav.hot-bar ul li:last-child {
 
 #scan-form button {
   padding: 1rem;
-  border: 0.1rem solid #ccc;
+  border: none;
   border-radius: 1rem;
   background-color: #FFA500;
-  color: white;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: bold;
   margin-right: 17.5rem; 
 }
 
 #scan-form button:hover {
   background-color: #FF8C00;
+  cursor: pointer;
 }
 
 h1 {
   margin-top: 3rem;
   text-align: center;
+  color: #fff;
+}
+
+@media screen and (max-width: 1070px) {
+  #scan-form input[type="text"] {
+    width: 80%;
+    margin: 2rem auto;
+  }
+
+  #scan-form button {
+    margin: 0.5rem auto;
+  }
 }

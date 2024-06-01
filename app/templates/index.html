@@ -1,16 +1,16 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>TPW</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicial.css' %}">
 </head>
 <body>
     <nav class="hot-bar">
         <ul>
-            <li>Usuário logado: {{ user.username }}</li>
-            <li><a href="#">Últimos testes</a></li>
-            <li><a href="#">Sair</a></li>
+            <li id="user-info">Usuário: <span class="username">{{ user.username }}</span></li>
+            <li><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
     </nav>
 
