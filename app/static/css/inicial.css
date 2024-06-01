@@ -21,7 +21,11 @@ body {
 }
 
 nav.hot-bar {
+<<<<<<< HEAD:app/static/css/inicial.css
   padding: 1rem;
+=======
+  padding: 1.5rem;
+>>>>>>> 36ea72561fa8dca9f2b23406fc0f7440cbcd26ed:app/static/css/home.css
   background-color: #348197;
 }
 
