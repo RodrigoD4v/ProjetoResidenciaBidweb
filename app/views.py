@@ -19,6 +19,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import logout  # Importe a função logout
 from io import BytesIO
+from django.views.decorators.csrf import csrf_protect
 
 def login_view(request):
     if request.method == 'POST':
@@ -67,6 +68,7 @@ def register_view(request):
     return render(request, 'register.html', {'form': form})
 
 @login_required
+@csrf_protect
 def index(request):
     return render(request, 'index.html')
 
