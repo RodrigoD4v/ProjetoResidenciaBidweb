@@ -52,6 +52,10 @@ form {
   justify-content: center;
 }
 
+form ul li {
+  color: red;
+}
+
 form ul {
   list-style-type: none;
   padding: 0;

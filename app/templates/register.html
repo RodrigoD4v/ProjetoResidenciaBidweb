@@ -18,23 +18,24 @@
             {% endfor %}
             </ul>
         {% endif %}
-        <ul>
-            <li>Deve ter, no mínimo, 12 caracteres</li>
-            <li>Deve incluir letras maiúsculas e minúsculas (a-z e A-Z)</li>
-            <li>Deve incluir um número (0-9)</li>
-            <li>Deve incluir um caractere especial (!, @, #, %, etc.)</li>
-            <li>Não deve se parecer com um endereço de e-mail</li>
+
+        <ul id="password-requirements">
+            <li id="char-count">Deve ter, no mínimo, 12 caracteres</li>
+            <li id="uppercase-lowercase">Deve incluir letras maiúsculas e minúsculas (a-z e A-Z)</li>
+            <li id="number">Deve incluir um número (0-9)</li>
+            <li id="special-char">Deve incluir um caractere especial (!, @, #, %, etc.)</li>
+            <li id="not-email">Não deve se parecer com um endereço de e-mail</li>
         </ul>
         
         <div class="input-group">
             <input type="text" name="username" placeholder="Nome de Usuário">
             <input type="email" name="email" placeholder="E-mail">
-            <input type="password" name="password1" placeholder="Senha">
+            <input type="password" name="password1" placeholder="Senha" id="password1">
             <input type="password" name="password2" placeholder="Confirmar Senha">
             <button type="submit">Registrar</button>
         </div>
-            
-        
     </form>
+
+    <script src="{% static 'js/password-validation.js' %}"></script>
 </body>
 </html>
