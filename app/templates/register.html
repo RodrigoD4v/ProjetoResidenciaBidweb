@@ -3,9 +3,18 @@
 <html>
 <head>
     <title>Registro</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/registrar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registro.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/redbord.css' %}">
+
 </head>
 <body>
+
+    <nav class="hot-bar">
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+        </ul>
+    </nav>
+
     <form method="post">
         {% csrf_token %}
         
@@ -18,23 +27,27 @@
             {% endfor %}
             </ul>
         {% endif %}
-        <ul>
-            <li>Deve ter, no mínimo, 12 caracteres</li>
-            <li>Deve incluir letras maiúsculas e minúsculas (a-z e A-Z)</li>
-            <li>Deve incluir um número (0-9)</li>
-            <li>Deve incluir um caractere especial (!, @, #, %, etc.)</li>
-            <li>Não deve se parecer com um endereço de e-mail</li>
+
+        <ul id="password-requirements">
+            <li id="char-count">Deve ter, no mínimo, 12 caracteres</li>
+            <li id="uppercase-lowercase">Deve incluir letras maiúsculas e minúsculas (a-z e A-Z)</li>
+            <li id="number">Deve incluir um número (0-9)</li>
+            <li id="special-char">Deve incluir um caractere especial (!, @, #, %, etc.)</li>
+            <li id="not-email">Não deve se parecer com um endereço de e-mail</li>
         </ul>
         
         <div class="input-group">
-            <input type="text" name="username" placeholder="Nome de Usuário">
-            <input type="email" name="email" placeholder="E-mail">
-            <input type="password" name="password1" placeholder="Senha">
-            <input type="password" name="password2" placeholder="Confirmar Senha">
+            <input type="text" name="username" placeholder="Nome de Usuário*" autocomplete="off">
+            <div class="username-feedback"></div>
+            <input type="email" name="email" placeholder="E-mail*" autocomplete="off">
+            <input type="password" name="password1" placeholder="Senha*" id="password1">
+            <input type="password" name="password2" placeholder="Confirmar Senha*">
             <button type="submit">Registrar</button>
         </div>
-            
-        
     </form>
+    </form>
+    <script src="{% static 'js/aviso.js' %}"></script>
+    <script src="{% static 'js/password-validation.js' %}"></script>
+    <script src="{% static 'js/validacaodenome.js' %}"></script>
 </body>
 </html>

@@ -14,6 +14,34 @@ body {
   flex-direction: column;
 }
 
+nav.hot-bar {
+  padding: 1rem;
+  background-color: #348197;
+}
+
+
+nav.hot-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav.hot-bar ul li {
+  margin-right: 2rem;
+  font-weight: bold;
+}
+
+nav.hot-bar ul li a {
+  font-weight: bold;
+  color: #140641;
+  text-decoration: none;
+}
+
+nav.hot-bar ul li a:hover {
+  color: #FF8C00;
+}
+
 form {
   margin-top: 10rem;
   flex-grow: 1;

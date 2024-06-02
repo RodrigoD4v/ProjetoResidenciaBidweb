@@ -4,6 +4,8 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/logar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login_erro.css' %}">
+   
 </head>
 <body>
 
@@ -13,13 +15,32 @@
     
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Nome de Usuário">
-            <input type="password" name="password" placeholder="Senha">
+            <input type="text" name="username" placeholder="Nome de Usuário" class="{% if form.errors.username or messages %}error{% endif %}">
+            <input type="password" name="password" placeholder="Senha" class="{% if form.errors.password or messages %}error{% endif %}">
+            
+            {% if form.errors %}
+                <div class="error-message">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                <div class="error-message credential-error">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
             <button type="submit">Login</button>
+            
         </form>
         <p class="registro-link">Não tem uma conta? <a href="{% url 'register' %}">Registrar-se</a></p>
     </div>
 
-
+    <script src="{% static 'js/login_error.js' %}"></script>
 </body>
 </html>

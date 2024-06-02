@@ -1,0 +1,20 @@
+.input-group input.error {
+  border: 2px solid red;
+}
+
+.input-group input.error + .error-message,
+.input-group .username-feedback {
+  color: red !important;
+  font-size: 0.8em;
+  margin-top: -0.7em;
+  margin-bottom: 0.7em;
+}
+
+.input-group input {
+  margin-bottom: 1em;
+}
+
+.input-group .username-feedback {
+  margin-top: -0.5em; 
+  margin-bottom: 0.5em;
+}

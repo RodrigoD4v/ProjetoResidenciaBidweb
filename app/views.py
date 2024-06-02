@@ -17,13 +17,31 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth import logout  # Importe a função logout
+from django.contrib.auth import logout
 from io import BytesIO
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django import forms
+
+class CustomAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': "Nome de usuário ou senha inválidos.",
+    }
+
+def check_username(request):
+    if request.method == 'GET':
+        username = request.GET.get('username', None)
+        if username:
+            user_exists = User.objects.filter(username=username).exists()
+            return JsonResponse({'exists': user_exists})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -31,8 +49,11 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('index')  
+            else:
+                messages.error(request, 'Nome de usuário ou senha inválidos.')
+                return redirect('login')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
@@ -85,18 +106,7 @@ def run_scan(request):
         
         session = requests.Session()
 
-        # 
-        response = session.get(f"{url}/?id=1' OR '1'='1")
-        if 'SQL syntax' in response.text or 'error in your SQL syntax' in response.text:
-            vulnerability = Vulnerability.objects.create(
-                test_result=test_result,
-                tipo='SQL Injection',
-                descrição='Potencial vulnerabilidade de SQL Injection detectada',
-                impacto='Alto'
-            )
-            vulnerabilities.append(vulnerability)
         
-        # 
         response = session.get(f"{url}/?name=<script>alert('XSS')</script>")
         soup = BeautifulSoup(response.text, 'html.parser')
         if soup.find_all('script'):
@@ -108,7 +118,6 @@ def run_scan(request):
             )
             vulnerabilities.append(vulnerability)
         
-        # 
         response = session.get(f"{url}/?cmd=;echo%20$USER")
         if '$USER' in response.text:
             vulnerability = Vulnerability.objects.create(
@@ -119,18 +128,7 @@ def run_scan(request):
             )
             vulnerabilities.append(vulnerability)
         
-        # Local File Inclusion check
-        response = session.get(f"{url}/?file=/etc/passwd")
-        if 'root:' in response.text:
-            vulnerability = Vulnerability.objects.create(
-                test_result=test_result,
-                tipo='Local File Inclusion',
-                descrição='Potencial vulnerabilidade de Inclusão de Arquivos Locais detectada',
-                impacto='Alto'
-            )
-            vulnerabilities.append(vulnerability)
-        
-        # 
+    
         if re.search(r'\b(?:referer|x-forwarded-for|user-agent|host)\b', str(request.headers), re.IGNORECASE):
             vulnerability = Vulnerability.objects.create(
                 test_result=test_result,
@@ -140,7 +138,7 @@ def run_scan(request):
             )
             vulnerabilities.append(vulnerability)
         
-        # 
+        
         response = session.get(url)
         if 'Access-Control-Allow-Origin' not in response.headers:
             vulnerability = Vulnerability.objects.create(
@@ -150,50 +148,14 @@ def run_scan(request):
                 impacto='Médio'
             )
             vulnerabilities.append(vulnerability)
-        
-        # 
-        file_content = b'Content of a malicious file'
-        files = {'file': file_content}
-        response = session.post(f"{url}/upload", files=files)
-        if 'Uploaded successfully' in response.text:
-            vulnerability = Vulnerability.objects.create(
-                test_result=test_result,
-                tipo='File Upload Vulnerability',
-                descrição='Potencial vulnerabilidade de upload de arquivo detectada',
-                impacto='Alto'
-            )
-            vulnerabilities.append(vulnerability)
-        
-        # 
-        response = session.get(f"{url}/../../etc/passwd")
-        if 'root:' in response.text:
-            vulnerability = Vulnerability.objects.create(
-                test_result=test_result,
-                tipo='Directory Traversal',
-                descrição='Potencial vulnerabilidade de Traversão de Diretório detectada',
-                impacto='Alto'
-            )
-            vulnerabilities.append(vulnerability)
-        
-        # 
-        serialized_data = b'malicious_serialized_data'
-        response = session.post(f"{url}/deserialize", data=serialized_data)
-        if 'Deserialization successful' in response.text:
-            vulnerability = Vulnerability.objects.create(
-                test_result=test_result,
-                tipo='Insecure Deserialization',
-                descrição='Potencial vulnerabilidade de Deserialização Insegura detectada',
-                impacto='Alto'
-            )
-            vulnerabilities.append(vulnerability)
 
         pdf_bytes = generate_pdf(vulnerabilities)
         
-        # 
+      
         test_result.status = 'Concluído'
         test_result.save()
         
-        # 
+      
         response = HttpResponse(pdf_bytes, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=report.pdf'
         return response
@@ -202,10 +164,8 @@ def run_scan(request):
         return HttpResponse(f"Error: {str(e)}", status=400)
 
 
-
-
 def generate_pdf(vulnerabilities):
-    buffer = BytesIO()  # Cria um buffer de memória para o PDF
+    buffer = BytesIO()
     pdf = SimpleDocTemplate(buffer, pagesize=letter)
     elements = []
     
