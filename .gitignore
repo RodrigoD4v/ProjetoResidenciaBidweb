@@ -1,4 +1,3 @@
-
 # Distribuição / pacotes instalados
 .Python
 env/
@@ -37,3 +36,6 @@ coverage/
 # Variáveis de ambiente
 .env
 .env.*
+
+# staticfiles
+staticfiles/
